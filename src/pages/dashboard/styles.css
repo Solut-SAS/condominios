@@ -1,0 +1,14 @@
+.floor-component, .block-component {
+  cursor: pointer;
+}
+
+.block-component:hover > img,
+.floor-component:hover > img,
+.floor-component:hover > div {
+  transform: scale(1.2);
+  transition: 0.2s;
+}
+
+.floor-component:hover > div {
+  opacity: 1;
+}

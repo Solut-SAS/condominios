@@ -1,0 +1,17 @@
+.footer-component {
+  /* position: fixed; */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('../../assets/footer.svg');
+  width: 100vw;
+  height: 25vh;
+}
+
+.footer-component span {
+  color: white;
+}
+
+
+.footer-component > div a {
+  color: white;
+}
