@@ -4,7 +4,14 @@ import {
 } from "./app-button-styles";
 import { Spinner } from "flowbite-react";
 
-export default ({ title, type, action, customClass, loading }) => {
+export default ({
+  title,
+  type,
+  action,
+  customClass,
+  loading,
+  submit = false,
+}) => {
   // const concat = (c1: string, c2: string) : string => c1 + " " + c2;
 
   const decideButtonClass = () => {
@@ -16,10 +23,14 @@ export default ({ title, type, action, customClass, loading }) => {
     return customClass || classes[type];
   };
 
-  const handleClick = () => !loading && action();
+  const handleClick = () => !loading && action && action();
 
   return (
-    <button type="submit" onClick={handleClick} className={decideButtonClass()}>
+    <button
+      type={submit ? "submit" : ""}
+      onClick={handleClick}
+      className={decideButtonClass()}
+    >
       {loading && <Spinner color="warning" size="md" />}
       <span className="ml-2">{loading ? "Cargando..." : title}</span>
     </button>

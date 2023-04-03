@@ -124,6 +124,7 @@ const login = {
       type: "primaryClass",
       title: "Iniciar sesión",
       action: "loginAction",
+      submit: true
     },
   ],
 };

@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import AppButton from "../ui/button/AppButton";
 import { formContentStyle, formInputStyle } from "./form-styles";
 // import formValidator from "../../services/utils/validations";
+// import AppErrorMessage from "./AppErrorMessage";
 
-import AppErrorMessage from "./AppErrorMessage";
-import { login } from "../../features/authentication";
+export default function Form({ form, onSubmit, loading = false }) {
 
-export default function Form({ form, onSubmit }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const target = e.target;
@@ -53,13 +52,15 @@ export default function Form({ form, onSubmit }) {
           key={button.title + index}
           title={button.title}
           type={button.type}
+          submit={button.submit}
+          loading={loading}
         />
       ))}
     </>
   );
 
   return (
-    <form className={formContentStyle} onSubmit={handleSubmit}>
+    <form className={formContentStyle} onSubmit={handleSubmit} >
       <DrawForm />
     </form>
   );

@@ -14,7 +14,11 @@ const FloorsComponent = ({ floors, viewFloor }) =>
         <div className={floorText}>
           <span className={`text-white text-sm self-center`}>{floorValue}</span>
         </div>
-        <img src={floor} className="box-svg" style={{ width: "60%" }} />
+        <img
+          src={floor}
+          className="box-svg"
+          style={{ width: "60%", maxWidth: "100%", height: "auto" }}
+        />
       </div>
     );
   });

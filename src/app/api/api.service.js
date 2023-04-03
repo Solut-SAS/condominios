@@ -1,31 +1,29 @@
-import fetch from '../../lib/axios'
+import fetch from "../../lib/axios";
 
-let user = JSON.parse(window.localStorage.getItem('user') || '{}')
+let user = JSON.parse(window.localStorage.getItem("user") || "{}");
 
 let setToken = () => {
-	fetch.defaults.headers.common['Authorization'] = user
-		? `Bearer ${user.token}`
-		: ''
-}
+  fetch.defaults.headers.common["Authorization"] = user
+    ? `Bearer ${user.token}`
+    : "";
+};
 
 export const post = async (endPoint, req) => {
-	setToken()
-
-	try {
-		const { data } = await fetch.post(endPoint, req)
-		return data
-	} catch (error) {
-		throw error
-	}
-}
+  return await execHttpMethod("post", endPoint, req);
+};
 
 export const get = async (endPoint, req) => {
-	setToken()
+  return await execHttpMethod("get", endPoint, req);
+};
 
-	try {
-		const { data } = await fetch.get(endPoint, { params: req })
-		return data
-	} catch (error) {
-		throw error
-	}
-}
+const execHttpMethod = async (method, endPoint, params) => {
+  setToken();
+  params = method == "post" ? params : { params };
+  try {
+    const { data } = await fetch[method](endPoint, params);
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

@@ -3,13 +3,14 @@ import { invitationBox } from "./styles";
 
 const BoxComponent = ({ onCreate, title, value }) => (
   <div className={invitationBox}>
-    <div className="flex w-[2em] h-[2em]">
+    <div className="flex w-[2.2em] h-[2.2em]">
       <img
         src={plus}
         onClick={onCreate}
         width={"90%"}
         className="cursor-pointer hover:w-[100%] ease-in-out duration-300"
       />
+      <span className="self-center ml-2" >Crear</span>
     </div>
     <div className="flex flex-col">
       <span>{title}</span>
