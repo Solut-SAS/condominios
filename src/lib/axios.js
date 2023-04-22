@@ -1,20 +1,25 @@
 import axios from "axios";
-import { SERVER_URL } from "../common/config";
-
-const axiosClient = axios.create({
-  baseURL: SERVER_URL,
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  },
-});
+import { APIS } from "../common/config";
 
 const handleError = (error) => {
   return Promise.reject(error);
 };
 
-axiosClient.interceptors.response.use(function (response) {
-  return response;
-}, handleError);
+let axiosInstances = {};
 
-export default axiosClient;
+for (let i = 0; i < APIS.length; i++) {
+  const api = APIS[i];
+  axiosInstances[api.name] = axios.create({
+    baseURL: api.url,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+  axiosInstances[api.name].interceptors.response.use(function (response) {
+    return response;
+  }, handleError);
+}
+
+export default axiosInstances;

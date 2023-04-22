@@ -1,7 +1,12 @@
-export const ENV = import.meta.env.VITE_NODE_ENV || 'development'
-export const SERVER_URL =
-	ENV === 'prod'
-		? 'https://condominios-backend-auth-production.up.railway.app/'
-		: ENV === 'develop'
-		? import.meta.env.VITE_BASE_URL
-		: 'https://condominios-backend-auth-production.up.railway.app/'
+const ENV = "production";
+const configPath = `./env/${ENV}.json`;
+
+let config = {};
+await (async function getConfig() {
+  config = await import(configPath);
+})();
+
+export const APIS = [
+  { name: "commerce", url: config.COMMERCE_URL },
+  { name: "auth", url: config.AUTH_URL },
+];
