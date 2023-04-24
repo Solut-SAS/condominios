@@ -1,4 +1,4 @@
 {
-  "AUTH_URL": "https://condominios-backend-auth-production.up.railway.app/",
-  "COMMERCE_URL": "https://condominios-backend-commerce-production.up.railway.app/"
+  "AUTH_URL": "http://localhost:3000",
+  "COMMERCE_URL": "http://localhost:3001"
 }

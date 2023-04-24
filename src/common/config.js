@@ -1,7 +1,7 @@
-const ENV = "production";
+const ENV = "development";
 const configPath = `./env/${ENV}.json`;
 
-let config = await (async () => await import(configPath))();
+const config = await (async () => await import(configPath))();
 
 export const APIS = [
   { name: "commerce", url: config.COMMERCE_URL },

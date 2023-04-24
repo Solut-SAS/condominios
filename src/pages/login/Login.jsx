@@ -10,7 +10,13 @@ import { login as signIn } from "../../features/authentication";
 function Login() {
   let navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
   const toLogin = async (formData) => {
+    formData = {
+      username: '3017765147',
+      password: 'Lieto#2022'
+    };
+    
     setLoading(true);
     try {
       await signIn(formData);

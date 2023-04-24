@@ -13,26 +13,65 @@ const SearchComponent = () => {
 
   const handleSearch = async (event) => {
     setSearch(event.target.value);
-    let query = {
-      "search": event.target.value,
-      "commerceId": 1
+    if (!event.target.value) {
+      setResult([{}]);
+      return;
     }
+
+    let query = {
+      search: event.target.value,
+      commerceId: 1,
+    };
 
     let response;
     try {
-      response = await searchStructure(query)
+      response = await searchStructure(query);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    console.log({ response: response.payload });
-
-    setResult(response.payload);
+    buildResult(response.payload);
   };
 
-  const handleSelectOption = (s, clear = false) => {
-    if (exists(s)) return;
-    updateItems(s, clear);
-    setResult([{}]);
+  const buildResult = (data) => {
+    let mappedResult = {};
+
+    data.map((r, i) => {
+      mappedResult[i] = {
+        names: buildName(r),
+        value: r,
+      };
+    });
+    setResult(mappedResult);
+  };
+
+  const buildName = (str) => {
+    let result = [];
+    let names = str.name;
+    if (str.floors?.length) {
+      str.floors.map((floor) => {
+        if (floor.homes?.length) {
+          let x = floor.homes.reduce((a, b) => {
+            const name = names + " - " + b.name;
+            a.push(name);
+            return a;
+          }, []);
+          result = result.concat(x);
+        } else {
+          result.push(names);
+        }
+      });
+    } else {
+      result.push(names);
+    }
+    return result;
+  };
+
+  const handleSelectOption = (name, {strIndex, nameIndex}, clear = false) => {
+    let item = { name, id: `${name}-${strIndex}${nameIndex}` };
+    console.log({item})
+    if (exists(item)) return;
+    updateItems(item, clear);
+    // setResult([{}]);
   };
 
   const handleAllCommerceSelected = () => {
@@ -57,17 +96,21 @@ const SearchComponent = () => {
         <img src={searchImg} className="absolute right-4 bottom-3" />
       </div>
 
-      {result.length ? (
+      {Object.keys(result).length ? (
         <div className="flex flex-col w-full rounded-b-lg border -mt-1 p-2 h-max">
-          {result.map((r) => (
-            <span
-              key={r.id}
-              onClick={() => handleSelectOption(r)}
-              className="flex w-full p-1 cursor-pointer rounded-md hover:bg-neutral-100"
-            >
-              {r.name}
-            </span>
-          ))}
+          {Object.values(result).map(
+            (r, strIndex) =>
+              r.names?.length &&
+              r.names.map((name, nameIndex) => (
+                <span
+                  key={`${name}`+strIndex + nameIndex}
+                  onClick={() => handleSelectOption(name, {strIndex, nameIndex})}
+                  className="flex w-full p-1 cursor-pointer rounded-md hover:bg-neutral-100"
+                >
+                  {name}
+                </span>
+              ))
+          )}
         </div>
       ) : null}
 
