@@ -28,6 +28,7 @@ const towers = [
         content: "Encontré mi casa sin pertenencias",
         status: "pending",
       },
+      
     ],
     occupationPercent: 80,
   },
@@ -46,6 +47,37 @@ const towers = [
     id: 4,
     name: "Torre 4",
     floors: 10,
+    occupationPercent: 100,
+  },
+  {
+    id: 5,
+    name: "Torre 5",
+    floors: 10,
+    occupationPercent: 100,
+  },
+  {
+    id: 6,
+    name: "Torre 6",
+    floors: 10,
+    occupationPercent: 100,
+  },
+  {
+    id: 7,
+    name: "Torre 7",
+    floors: 10,
+    occupationPercent: 100,
+  },
+  {
+    id: 8,
+    name: "Torre 8",
+    floors: 8,
+    occupationPercent: 100,
+  },
+
+  {
+    id: 9,
+    name: "Torre 9",
+    floors: 8,
     occupationPercent: 100,
   },
 ];

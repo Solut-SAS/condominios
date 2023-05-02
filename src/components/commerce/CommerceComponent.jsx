@@ -18,7 +18,7 @@ const RoundNews = ({ toggleModal }) => (
     </div>
 
     {guard_annotations?.map((ga) => (
-      <div className="flex flex-col w-full shadow-md mt-1 mb-1 rounded-md p-3">
+      <div className="flex flex-col w-full shadow-md mt-1 mb-1 rounded-md p-3" key={ga.id}>
         <div className="flex flex-row justify-between	mb-1">
           <span className="flex font-bold text-sm">{ga.reportedBy}</span>
           <span className="text-sm flex">
@@ -128,7 +128,7 @@ const Commerce = (commerce) => {
               }}
             />
           </div>
-          <StructureComponent structure={structure} />
+            <StructureComponent structure={structure} />
         </div>
       </div>
       {/* <h1>Accesos directos</h1>

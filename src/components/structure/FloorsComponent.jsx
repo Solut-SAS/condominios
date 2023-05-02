@@ -8,7 +8,7 @@ const FloorsComponent = ({ floors, viewFloor }) =>
       <div
         style={{ zIndex: floorValue }}
         key={index}
-        className="floor-component -mb-8"
+        className="floor-component h-4 md:h-4 lg:h-6"
         onClick={() => viewFloor(floorValue)}
       >
         <div className={floorText}>

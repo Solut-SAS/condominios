@@ -1,14 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { spaceStyle } from "./styles";
 import { floor } from "../../data/dummyData";
 import SidebarInfo from "../sidebar/SidebarInfo";
 import { TowerComponent, Block, Annotation } from "./";
 
 const StructureComponent = ({ structure }) => {
-  const [towers] = useState(structure.towers);
+  const [towers, setTowers] = useState(structure.towers);
+  const [renderedTowers, setRenderedTowers] = useState([]);
   const [blocks] = useState(structure.blocks);
   const [showSidebar, setShowSidebar] = useState(false);
   const [renderObject, setRenderObject] = useState({});
+  const [defaultTowersOnscreen] = useState(4);
+  const [currentTowerIndex, setCurrentTowerIndex] = useState(0);
+
+  useEffect(() => {
+    let visibleTowes = towers.slice(0, defaultTowersOnscreen);
+    setRenderedTowers(visibleTowes);
+  }, []);
+
+  const calcVariation = (type) => {
+    const types = {
+      increment: 1,
+      decrement: -1,
+    };
+
+    let op = types[type] * defaultTowersOnscreen;
+
+    setCurrentTowerIndex((prev) => prev + op);
+    setRenderedTowers(
+      towers.slice(currentTowerIndex + op, currentTowerIndex + op + 4)
+    );
+  };
 
   const RenderAnnotations = () => (
     <>
@@ -70,7 +92,7 @@ const StructureComponent = ({ structure }) => {
   };
 
   const Towers = () =>
-    towers.map((tower) => (
+    renderedTowers.map((tower) => (
       <TowerComponent
         key={tower.id}
         tower={tower}
@@ -82,6 +104,15 @@ const StructureComponent = ({ structure }) => {
 
   return (
     <div className="flex flex-col">
+      <div className="flex flex-row">
+        {currentTowerIndex != 0 && (
+          <span onClick={() => calcVariation("decrement")}>Atrás</span>
+        )}
+        {currentTowerIndex + defaultTowersOnscreen <= towers.length && (
+          <span onClick={() => calcVariation("increment")}>Siguiente</span>
+        )}
+      </div>
+
       <div className={spaceStyle}>
         <Towers />
       </div>
