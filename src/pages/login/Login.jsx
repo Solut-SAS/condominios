@@ -13,13 +13,14 @@ function Login() {
 
   const toLogin = async (formData) => {
     formData = {
-      username: '3017765147',
-      password: 'Lieto#2022'
+      username: 'mperez',
+      password: 'pass456'
     };
+    // console.log(formData);
     
     setLoading(true);
     try {
-      await signIn(formData);
+      // await signIn(formData);
       navigate("/commerces");
     } catch (error) {
       console.log(error);
@@ -53,11 +54,14 @@ function Login() {
               <img src={logo} alt="" style={{ width: "50%" }} />
             </div>
             <div className="mt-4">
+
+
               <AppForm
                 form={login}
                 onSubmit={(e) => toLogin(e)}
                 loading={loading}
               />
+              
               <div className="flex flex-row w-full justify-center">
                 <div className="basis-2/5">
                   <input type="checkbox" className="checked:bg-red-500" />

@@ -66,9 +66,9 @@ const SearchComponent = () => {
     return result;
   };
 
-  const handleSelectOption = (name, {strIndex, nameIndex}, clear = false) => {
+  const handleSelectOption = (name, { strIndex, nameIndex }, clear = false) => {
     let item = { name, id: `${name}-${strIndex}${nameIndex}` };
-    console.log({item})
+    console.log({ item });
     if (exists(item)) return;
     updateItems(item, clear);
     // setResult([{}]);
@@ -76,7 +76,11 @@ const SearchComponent = () => {
 
   const handleAllCommerceSelected = () => {
     //TODO sacar id del commerce actual
-    handleSelectOption(commerceObject, true);
+    handleSelectOption(
+      commerceObject.name,
+      { strIndex: 0, nameIndex: 0 },
+      true
+    );
     allCommerce && removeItem(commerceObject);
     setAllCommerce(!allCommerce);
   };
@@ -103,8 +107,10 @@ const SearchComponent = () => {
               r.names?.length &&
               r.names.map((name, nameIndex) => (
                 <span
-                  key={`${name}`+strIndex + nameIndex}
-                  onClick={() => handleSelectOption(name, {strIndex, nameIndex})}
+                  key={`${name}` + strIndex + nameIndex}
+                  onClick={() =>
+                    handleSelectOption(name, { strIndex, nameIndex })
+                  }
                   className="flex w-full p-1 cursor-pointer rounded-md hover:bg-neutral-100"
                 >
                   {name}

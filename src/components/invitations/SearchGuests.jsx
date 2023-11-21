@@ -4,7 +4,7 @@ import { search as searchImg } from "../../assets";
 import { addGuestButton } from "./styles";
 import { CreateGuest } from "./";
 
-const SearchGuests = () => {
+const SearchGuests = ({ selectedGuest }) => {
   const [search, setSearch] = useState("");
   const [result, setResult] = useState([]);
   const [showGuestCreation, setShowGuestCreation] = useState(false);
@@ -28,35 +28,37 @@ const SearchGuests = () => {
   };
 
   return (
-    <div className="flex flex-col w-[100%] mb-2 z-0">
-      <div className="flex">
-        <div className="flex relative h-10  w-[70%]">
-          <input
-            className={"flex w-full bg-neutral-100 rounded-md p-2"}
-            type="text"
-            placeholder="Buscar invitado..."
-            name="search"
-            value={search}
-            onChange={handleSearch}
-          />
-          <img src={searchImg} className="absolute right-4 bottom-3" />
-        </div>
+    <div className="flex flex-col w-3/4 mb-2 z-0">
+      <div className="flex relative h-10  w-[100%]">
+        <input
+          className={"flex w-full bg-neutral-100 rounded-md p-2"}
+          type="text"
+          placeholder="Buscar invitado..."
+          name="search"
+          value={search}
+          onChange={handleSearch}
+        />
+        <img src={searchImg} className="absolute right-4 bottom-3" />
+      </div>
 
-        <div className={addGuestButton} onClick={handleCreateGuest}>
+      {/* <div className={addGuestButton} onClick={handleCreateGuest}>
           <span className="text-white font-bold">
             {!showGuestCreation ? "+" : "-"}
           </span>
-        </div>
+        </div> */}
 
-        {/* {showGuestCreation && <CreateGuest name={search} />} */}
-      </div>
+      {/* {showGuestCreation && <CreateGuest name={search} />} */}
 
       {result.length ? (
-        <div className="flex flex-col w-[70%] rounded-b-lg border -mt-1 p-2 h-max">
+        <div className="flex flex-col w-[100%] rounded-b-lg border -mt-1 p-2 h-max">
           {result.map((r) => (
             <span
               key={r.id}
-              onClick={() => console.log("hola")}
+              onClick={() => {
+                setResult([]);
+                setSearch("");
+                selectedGuest(r);
+              }}
               className="flex w-[100%] p-1 cursor-pointer rounded-md hover:bg-neutral-100"
             >
               {r.name}
@@ -64,6 +66,8 @@ const SearchGuests = () => {
           ))}
         </div>
       ) : null}
+
+     
     </div>
   );
 };

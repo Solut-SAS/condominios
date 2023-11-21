@@ -32,7 +32,7 @@ export default ({
       className={decideButtonClass()}
     >
       {loading && <Spinner color="warning" size="md" />}
-      <span className="ml-2">{loading ? "Cargando..." : title}</span>
+      <span className="">{loading ? "Cargando..." : title}</span>
     </button>
   );
 };

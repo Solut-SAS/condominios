@@ -5,10 +5,10 @@ import { logo } from "../assets";
 
 const LayoutWrapper = ({ children }) => (
   <>
-    <div className="pl-0 pt-0 sm:pl-6 sm:pt-6">
-      {/* <div className="mb-0 hidden sm:mb-10 sm:block ml-8"> */}
-        <img src={logo} className={"w-1/12 ml-8"} />
-      {/* </div> */}
+    <div className="pl-0 pt-0 sm:pt-6">
+      <div className="mb-0 hidden sm:block">
+        <img src={logo} className={"w-1/6 ml-8 mb-8"} />
+      </div>
       <div className={"flex flex-row"}>
         <div className="hidden sm:block">
           <SideBar />

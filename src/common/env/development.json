@@ -1,4 +1,4 @@
 {
-  "AUTH_URL": "http://localhost:3000",
-  "COMMERCE_URL": "http://localhost:3001"
+  "AUTH_URL": "https://api-condo.onrender.com",
+  "COMMERCE_URL": "https://api-condo.onrender.com"
 }

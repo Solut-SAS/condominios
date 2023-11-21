@@ -28,7 +28,7 @@ const StructureComponent = ({ structure }) => {
 
     setCurrentTowerIndex((prev) => prev + op);
     setRenderedTowers(
-      towers.slice(currentTowerIndex + op, currentTowerIndex + op + 4)
+      towers.slice(currentTowerIndex + op, currentTowerIndex + op + defaultTowersOnscreen)
     );
   };
 

@@ -3,49 +3,49 @@ export const menu = [
     path: "commerces",
     name: "Mis condominios",
     icon: "home",
-    permission: "commerces.admin"
+    roles: ['ADMIN', 'GUARD']
   },
   {
     path: "invitations",
     name: "Invitaciones",
     icon: "home",
-    permission: "invitations"
-  },
-  {
-    path: "zones",
-    name: "Espacios",
-    icon: "home",
-    permission: "zones.admin"
+    roles: ['ADMIN', 'GUARD', 'RESIDENT']
   },
   {
     path: "user-annotations",
     name: "Incidentes",
     icon: "home",
-    permission: "user-annotatios"
+    roles: "user-annotatios"
+  },
+  {
+    path: "zones",
+    name: "Espacios",
+    icon: "home",
+    roles: "zones.admin"
   },
   {
     path: "packages",
     name: "Paquetes",
     icon: "home",
-    permission: "packages"
+    roles: "packages"
   },
   {
     path: "annotations",
     name: "Comunicados",
     icon: "home",
-    permission: "annotations"
+    roles: "annotations"
   },
-  {
-    path: "documents",
-    name: "Documentos",
-    icon: "home",
-    permission: "documents"
-  },
-  {
-    path: "flowBalance",
-    name: "Caja",
-    icon: "home",
-    permission: "flowBalance"
-  }
+  // {
+  //   path: "documents",
+  //   name: "Documentos",
+  //   icon: "home",
+  //   permission: "documents"
+  // },
+  // {
+  //   path: "flowBalance",
+  //   name: "Caja",
+  //   icon: "home",
+  //   permission: "flowBalance"
+  // }
 ]
 

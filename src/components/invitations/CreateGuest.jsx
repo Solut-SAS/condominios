@@ -7,6 +7,11 @@ const CreateGuest = ({ name, onCreateGuest }) => {
 
   const handleInputChange = (event, setFunction) => {
     setFunction(event.target.value);
+    const data = {
+      name: guestName,
+      cellphone,
+    };
+    onCreateGuest(data);
   };
 
   const handleCreateGuest = () => {
@@ -18,9 +23,9 @@ const CreateGuest = ({ name, onCreateGuest }) => {
   };
 
   return (
-    <div className="flex-col ml-6 flex w-[30%]">
+    <div className="flex flex-col w-full items-center">
       <input
-        className={" mb-4 bg-neutral-100 rounded-md p-2"}
+        className={"mb-4 bg-neutral-100 rounded-md p-2 w-1/2"}
         type="text"
         placeholder="Escribe el nombre del invitado..."
         name="search"
@@ -29,19 +34,19 @@ const CreateGuest = ({ name, onCreateGuest }) => {
       />
 
       <input
-        className={" bg-neutral-100 rounded-md p-2"}
+        className={" bg-neutral-100 rounded-md p-2 w-1/2"}
         type="number"
-        placeholder="Celular"
+        placeholder="Celular (opcional)"
         value={cellphone}
         onChange={(e) => handleInputChange(e, setCellphone)}
       />
 
-      <AppButton
+      {/* <AppButton
         title="Crear invitado"
         action={handleCreateGuest}
         customClass="rounded-lg mt-4 text-white bg-red-500 hover:bg-red-600 p-1"
         loading={false}
-      />
+      /> */}
     </div>
   );
 };

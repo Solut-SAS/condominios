@@ -98,6 +98,11 @@ const blocks = [
     name: "Manzana 3",
     homes: 7,
   },
+  {
+    id: 4,
+    name: "Manzana 4",
+    homes: 7,
+  },
 ];
 
 const structure = { towers, blocks };
@@ -234,22 +239,22 @@ const invitations = {
     {
       id: 1,
       guestName: "Andres Maya",
-      dateStart: "2023-02-02",
-      dateEnd: "2023-02-10",
+      startDate: "2023-02-02",
+      endDate: "2023-02-10",
       status: "Activo",
     },
     {
       id: 2,
       guestName: "Julián Salgado",
-      dateStart: "2023-02-02",
-      dateEnd: "Sin caducidad",
+      startDate: "2023-02-02",
+      endDate: "Sin caducidad",
       status: "Activo",
     },
     {
       id: 3,
       guestName: "Julián Salgado",
-      dateStart: "2023-02-02",
-      dateEnd: "Sin caducidad",
+      startDate: "2023-02-02",
+      endDate: "Sin caducidad",
       status: "Activo",
     },
   ],
