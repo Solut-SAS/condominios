@@ -6,7 +6,8 @@ import {
   BoxComponent,
 } from "../../components/commerce";
 // import { guests, invitations } from "../../data/dummyData";
-import { CreateInvitation, CreateGuest } from "../../components/invitations";
+import { CreateGuest } from "../../components/invitations";
+import CreateInvitation from "../../components/invitations/CreateInvitation";
 import { commerceButton } from "../../components/commerce/styles";
 
 import { FallingLines } from "react-loader-spinner";

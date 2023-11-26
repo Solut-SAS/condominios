@@ -1,5 +1,4 @@
 import { useState } from "react";
-import AppButton from "../ui/button/AppButton";
 
 const CreateGuest = ({ name, onCreateGuest }) => {
   const [guestName, setGuestName] = useState(name);
@@ -40,13 +39,6 @@ const CreateGuest = ({ name, onCreateGuest }) => {
         value={cellphone}
         onChange={(e) => handleInputChange(e, setCellphone)}
       />
-
-      {/* <AppButton
-        title="Crear invitado"
-        action={handleCreateGuest}
-        customClass="rounded-lg mt-4 text-white bg-red-500 hover:bg-red-600 p-1"
-        loading={false}
-      /> */}
     </div>
   );
 };
