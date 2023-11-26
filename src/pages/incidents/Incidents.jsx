@@ -24,14 +24,14 @@ function Incidents() {
 
   const ButtonCreate = () => {
     return (
-      <div className="flex w-[2.2em] h-[2.2em]">
+      <div className="flex w-[2em] h-[2em] m-4">
         <img
           src={plus}
           onClick={handleOnCreate}
           width={"90%"}
           className="cursor-pointer hover:w-[100%] ease-in-out duration-300"
         />
-        <span className="self-center ml-2">Crear Incidente</span>
+        <span className="self-center w-30 ml-2">Crear Incidente</span>
       </div>
     );
   };

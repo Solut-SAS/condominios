@@ -189,13 +189,9 @@ const incidentForm = {
     }
   ],
   buttons: [
-     {
 
-      title: "Cancelar",
-      action: "CancelAction",
-     },
     {
-      type: "primaryClass",
+      type: "incident",
       title: "Registrar",
       action: "IncidentAction",
       submit: true
@@ -264,13 +260,9 @@ const incidentFormforEdit = {
     }
   ],
   buttons: [
-     {
-
-      title: "Cancelar",
-      action: "CancelAction",
-     },
+    
     {
-      type: "primaryClass",
+      type: "incident",
       title: "Guardar Cambios",
       action: "IncidentAction",
       submit: true

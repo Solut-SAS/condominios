@@ -56,7 +56,7 @@ export default function Form({
   };
 
   const Form = () => (
-    <div>
+    <div >
       {form.fields.map((field, index) => {
         return field.input ? (
           field.input.type != "file" ? (
@@ -97,7 +97,7 @@ export default function Form({
           )
         );
       })}
-
+        <div className="flex justify-around">
       {form.buttons?.map((button, index) => (
         <AppButton
           key={button.title + index}
@@ -107,11 +107,12 @@ export default function Form({
           loading={loading}
         />
       ))}
+      </div>
     </div>
   );
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} >
       <Form />
     </form>
   );

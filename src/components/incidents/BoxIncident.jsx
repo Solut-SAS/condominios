@@ -1,119 +1,115 @@
-import { useState,useContext,useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { IncidentContext } from "/src/context/Contexts";
 import IncidentsTable from "./IncidentsTable";
 import AppForm from "../../components/form/AppForm";
 import { Modal, Button } from "../index";
 import { incidentFormforEdit } from "../../data/form/FormFields";
-
-function BoxIncident () {
-    const [filterValue,setFilterValue] = useState ("todo") // organizar el renderizado con esta info 
-    const [showCreateElement, setShowCreateElement] = useState(false);
-    const [currentIncident, setCurrentIncident] = useState({});
-    const { incidents, setIncidents } = useContext(IncidentContext);
-    const [incidentsToPrint, setIncidentsToPrint] = useState(incidents)
-    const [loading, setLoading] = useState(false);
-
-    useEffect (()=>{
-
-        console.log(filterValue)
-
-       if (filterValue == "todo"){
-        setIncidentsToPrint(incidents)
-        console.log("Si entra a todos")
-       } else {
-        const data = incidents.filter(incident =>
-          incident.status == filterValue
-      )
-      console.log("Si entra a estados")
-        setIncidentsToPrint(data)
-       }
+import { filter } from "../../assets";
 
 
+function BoxIncident() {
+  const [filterValue, setFilterValue] = useState("todo"); // organizar el renderizado con esta info
+  const [showCreateElement, setShowCreateElement] = useState(false);
+  const [currentIncident, setCurrentIncident] = useState({});
+  const { incidents, setIncidents } = useContext(IncidentContext);
+  const [incidentsToPrint, setIncidentsToPrint] = useState(incidents);
+  const [loading, setLoading] = useState(false);
 
-    },[filterValue])
-    console.log("indicentes a imprimir",incidentsToPrint)
-    console.log(incidents)
-    const SpanFilter =() =>{
+  useEffect(() => {
+    console.log(filterValue);
 
-      return(
-        <span> ...
-      <select onChange={(e) => setFilterValue(e.target.value)}>
-      <option value="todo" >Selecciona</option>
-        <option value="todo" >Todos</option>
-        <option value="pending">Pendiente</option>
-        <option value="in_progress" >En proceso</option>
-        <option value="finished" >Cerrado</option>
-      </select>
-      </span>
-      )
+    if (filterValue == "todo") {
+      setIncidentsToPrint(incidents);
+      console.log("Si entra a todos");
+    } else {
+      const data = incidents.filter(
+        (incident) => incident.status == filterValue
+      );
+      console.log("Si entra a estados");
+      setIncidentsToPrint(data);
     }
+  }, [filterValue]);
+  console.log("indicentes a imprimir", incidentsToPrint);
+  console.log(incidents);
+  const SpanFilter = () => {
+    return (
+      <>
 
-    const toEdit = (formData) => {
-        setLoading(true);
-    
-        setTimeout(() => {
-          setLoading(false);
-          formData.image ? console.log(formData.image): formData.image = ""
-    
-          console.log(formData);
+        <div class=" absolut flex items-center justify-end">
+           <select
+            onChange={(e) => setFilterValue(e.target.value)}
+            className=" relative bg-transparent cursor-pointer border-none mb-2 mr-2 bottom-14"
+          >
+            <option value="todo">Filtra</option>
+            <option value="todo">Todos</option>
+            <option value="pending">Pendiente</option>
+            <option value="in_progress">En proceso</option>
+            <option value="finished">Cerrado</option>
+          </select>
+        </div>
+        
+      </>
+    );
+  };
 
-            currentIncident["type"] = formData["type"]
-            currentIncident["description"] = formData["description"]
-            currentIncident["image"] = formData ["image"]
+  const toEdit = (formData) => {
+    setLoading(true);
 
-            console.log(currentIncident)
-        }, 1000);
+    setTimeout(() => {
+      setLoading(false);
+      formData.image ? console.log(formData.image) : (formData.image = "");
 
-      };
+      console.log(formData);
 
-    const handleCancelButton = () => {
-        setShowCreateElement(!showCreateElement);
-      };
-      
-    const HeaderModal = () => {
-        return <span>Editar incidente</span>;
-      };
+      currentIncident["type"] = formData["type"];
+      currentIncident["description"] = formData["description"];
+      currentIncident["image"] = formData["image"];
 
-    const handleAction = (action,incident) => {
-        if (action == "edit"){
-            setShowCreateElement(!showCreateElement);
-            setCurrentIncident(incident)
-        } else {
-            console.log("Eliminando el incidente con id", incident.id)
-        }
+      console.log(currentIncident);
+    }, 1000);
+  };
+
+  const handleCancelButton = () => {
+    setShowCreateElement(!showCreateElement);
+  };
+
+  const HeaderModal = () => {
+    return <span>Editar incidente</span>;
+  };
+
+  const handleAction = (action, incident) => {
+    if (action == "edit") {
+      setShowCreateElement(!showCreateElement);
+      setCurrentIncident(incident);
+    } else {
+      console.log("Eliminando el incidente con id", incident.id);
     }
+  };
 
-    const DrawModalBody = () => {
-        return (
-            <AppForm
-            form={incidentFormforEdit}
-            onSubmit={(e) => toEdit(e)}
-            loading={loading}
-            loadedData={currentIncident}
-          />
-        )
-      }
+  const DrawModalBody = () => {
+    return (
+      <AppForm
+        form={incidentFormforEdit}
+        onSubmit={(e) => toEdit(e)}
+        loading={loading}
+        loadedData={currentIncident}
+      />
+    );
+  };
 
-
-    return ( <>
-    <SpanFilter/>
-        <IncidentsTable 
-            items ={incidentsToPrint}
-            onAction = {handleAction}
-        />
-        <Modal
+  return (
+    <>
+      <SpanFilter />
+      <IncidentsTable items={incidentsToPrint} onAction={handleAction} />
+      <Modal
         show={showCreateElement}
         onClose={handleCancelButton}
         header={<HeaderModal />}
-        body={<DrawModalBody/>}
+        body={<DrawModalBody />}
         footer={""}
       />
-      </>
-    )
-
-    
-
-    
+    </>
+  );
 }
 
-export default BoxIncident
+export default BoxIncident;

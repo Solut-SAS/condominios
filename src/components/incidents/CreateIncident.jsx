@@ -2,6 +2,7 @@ import { incidentForm } from "../../data/form/FormFields";
 import AppForm from "../../components/form/AppForm";
 import { useState, useContext } from "react";
 
+
 import { IncidentContext } from "/src/context/Contexts";
 
 function CreateIncident() {
@@ -31,6 +32,7 @@ function CreateIncident() {
         onSubmit={(e) => toRegister(e)}
         loading={loading}
       />
+
 
   );
 }
