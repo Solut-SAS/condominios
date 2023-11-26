@@ -21,11 +21,11 @@ function SidebarComponent() {
           {menu.map((el) => (
             <Sidebar.Item
               key={el.name}
-              href={el.path}
+              // href={el.path}
               onClick={() => {
                 navigate(e.path);
               }}
-              className="text-lg font-medium tracking-tighter  mb-4 hover:text-red-500"
+              className="text-lg font-medium tracking-tighter  mb-4 hover:text-red-500 hover:cursor-pointer"
             >
               {el.name}
             </Sidebar.Item>
@@ -34,7 +34,7 @@ function SidebarComponent() {
         <Sidebar.ItemGroup>
           <Sidebar.Item
             href="/"
-            className="text-lg font-bold tracking-tighter mb-4 hover:text-red-500"
+            className="text-lg font-bold tracking-tighter mb-4 hover:text-red-500 hover:cursor-pointer"
             onClick={handleLogout}
           >
             Cerrar sesión
