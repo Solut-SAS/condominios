@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 // import { commerces } from "../../data/dummyData";
-import { logo } from "../../assets";
+import { logo, building} from "../../assets";
 import { FallingLines } from "react-loader-spinner";
 
 const Commerces = ({ selectCommerce, commerces, loading }) => {
@@ -38,7 +38,7 @@ const Commerces = ({ selectCommerce, commerces, loading }) => {
                 </div>
                 <div className="flex justify-center items-center ml-4 mt-4 mb-4">
                   <img
-                    src="/src/assets/building.png"
+                    src={building}
                     alt="commerce"
                     className="w-12 h-12"
                   />
