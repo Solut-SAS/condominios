@@ -2,7 +2,7 @@ import SearchGuests from "./SearchGuests";
 import DateRangePicker from "../ui/date-range-picker/DatePicker";
 import { useState, useEffect } from "react";
 
-const CreateInvitation = ({ updateData }) => {
+const CreateInvitationComponent = ({ updateData }) => {
   const [noExpiration, setNoExpiration] = useState(false);
   const [currentSelectedGuest, setCurrentSelectedGuest] = useState({});
   const [dates, setDates] = useState({});
@@ -67,4 +67,4 @@ const CreateInvitation = ({ updateData }) => {
   );
 };
 
-export default CreateInvitation;
+export default CreateInvitationComponent;

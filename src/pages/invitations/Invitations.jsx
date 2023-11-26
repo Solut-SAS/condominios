@@ -7,6 +7,9 @@ import {
 } from "../../components/commerce";
 // import { guests, invitations } from "../../data/dummyData";
 import { CreateGuest } from "../../components/invitations";
+
+import CreateInvitationComponent from "../../components/invitations/CreateinvitationComponent.jsx";
+
 import { commerceButton } from "../../components/commerce/styles";
 
 import { FallingLines } from "react-loader-spinner";
@@ -165,8 +168,8 @@ function Invitations() {
 
   const CreateElement = () => {
     const drawCompontent = {
-      invitation: <CreateGuest onCreateGuest={handleCreateGuest} />,
       guest: <CreateGuest onCreateGuest={handleCreateGuest} />,
+      invitation: <CreateInvitationComponent updateData={handleUpdateDate} />,
     };
 
     const header = `Crear ${types[elementType]}`;
