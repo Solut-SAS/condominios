@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import AnnotationsContext from '../../context/Contexts';
+import {AnnotationsContext} from '../../context/Contexts';
 
 const InputArea = () => {
   const { setAnnotationContent, annotationContent } = useContext(AnnotationsContext);

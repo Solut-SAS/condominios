@@ -28,7 +28,6 @@ const towers = [
         content: "Encontré mi casa sin pertenencias",
         status: "pending",
       },
-      
     ],
     occupationPercent: 80,
   },
@@ -364,6 +363,31 @@ const guestsFinded = [
   { id: 4, name: "Ana María", cellphone: "3123123123" },
 ];
 
+const incidentes = [ 
+  {
+    id: 1,
+    type: "security",
+    status: "finished",
+    description: "Armamos el arbol de navidad y no alcanza la extensión",
+    image: "",
+  },
+  {
+    id: 2,
+    type: "damage",
+    status: "finished",
+    description:
+      "Se dañó la manguera del lavamanos y tuvimos que ir en chanclas a homecenter",
+    image: "",
+  },
+  {
+    id: 3,
+    type: "coexistence",
+    status: "pending",
+    description: "Yo fuí el que encontró la bicicleta en la piscina",
+    image: "",
+  },
+];
+
 export {
   commerce,
   commerces,
@@ -375,5 +399,6 @@ export {
   searchResults,
   recurrentAnnotations,
   recentAnnotations,
-	guestsFinded
+  guestsFinded,
+  incidentes,
 };

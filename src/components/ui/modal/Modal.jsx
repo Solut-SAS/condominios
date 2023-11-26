@@ -12,3 +12,4 @@ const ModalComponent = ({ show, onClose, header, body, footer }) => {
 };
 
 export default ModalComponent;
+ 

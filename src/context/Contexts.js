@@ -2,4 +2,6 @@ import { createContext } from 'react';
 
 const AnnotationsContext = createContext({});
 
-export default AnnotationsContext;
+const IncidentContext = createContext({})
+
+export{AnnotationsContext, IncidentContext} ;

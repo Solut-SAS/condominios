@@ -6,6 +6,7 @@ import {
   Dashboard,
   Invitations,
   Annotations,
+  Incidents,
   Login,
   Login as Register,
 } from "./pages";
@@ -32,6 +33,7 @@ function App() {
           <Route path="/commerces" element={<Dashboard />} />
           <Route path="/invitations" element={<Invitations />} />
           <Route path="/annotations" element={<Annotations />} />
+          <Route path="/user-annotations" element={<Incidents />} />
         </Route>
 
         <Route>
