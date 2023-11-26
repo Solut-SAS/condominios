@@ -1,5 +1,5 @@
-import SearchGuests from "/src/components/invitations/SearchGuests";
-import CreateInvitation from "/src/components/invitations/CreateInvitation";
-import CreateGuest from "/src/components/invitations/CreateGuest";
+import SearchGuests from './SearchGuests';
+import CreateGuest from './CreateGuest';
+import CreateInvitation from './CreateInvitation';
 
-export { CreateInvitation, SearchGuests, CreateGuest };
+export { SearchGuests, CreateGuest, CreateInvitation};
