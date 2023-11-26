@@ -3,7 +3,7 @@ import DateRangePicker from "../ui/date-range-picker/DatePicker";
 
 import { useState, useEffect } from "react";
 
-function CreateInvitation({ updateData }) {
+const CreateInvitation = ({ updateData }) => {
   const [noExpiration, setNoExpiration] = useState(false);
   const [currentSelectedGuest, setCurrentSelectedGuest] = useState({});
   const [dates, setDates] = useState({});
