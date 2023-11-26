@@ -1,7 +1,8 @@
-import { Sidebar } from "flowbite-react";
+import { Sidebar, Tooltip } from "flowbite-react";
 import { menu } from "../../data/menu";
 import { useNavigate } from "react-router-dom";
 
+import { premium } from "../../assets";
 
 function SidebarComponent() {
   let navigate = useNavigate();
@@ -23,11 +24,18 @@ function SidebarComponent() {
               key={el.name}
               // href={el.path}
               onClick={() => {
-                navigate(el.path);
+                el.status != 'inactive' && navigate(el.path);
               }}
-              className="text-lg font-medium tracking-tighter  mb-4 hover:text-red-500 hover:cursor-pointer"
+              className="text-lg font-medium tracking-tighter mb-4 hover:text-red-500 hover:cursor-pointer flex flex-row"
             >
-              {el.name}
+              <div className="flex flex-row">
+                <span className="mr-4">{el.name}</span>
+                {el.status == "inactive" && (
+                  <Tooltip content="Esta funcionalidad es premium, comunícate con tu asesor">
+                    <img src={premium} width={27}></img>
+                  </Tooltip>
+                )}
+              </div>
             </Sidebar.Item>
           ))}
         </Sidebar.ItemGroup>

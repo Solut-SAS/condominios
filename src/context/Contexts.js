@@ -2,6 +2,6 @@ import { createContext } from "react";
 
 const AnnotationsContext = createContext({});
 
-const CommerceContext = createContext({});
+const InvitationContext = createContext({});
 
-export { AnnotationsContext, CommerceContext };
+export { AnnotationsContext, InvitationContext };

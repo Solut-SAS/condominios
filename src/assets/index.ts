@@ -13,6 +13,7 @@ import x from './x.svg'
 import search from './search.svg'
 import star from './star.svg'
 import building from './building.png'
+import premium from './premium.png'
 
 export {
 	floor,
@@ -29,5 +30,6 @@ export {
 	x,
 	search,
 	star,
-	building
+	building,
+	premium
 }

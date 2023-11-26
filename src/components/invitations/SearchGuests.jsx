@@ -1,13 +1,16 @@
-import { useState } from "react";
-import { guestsFinded } from "../../data/dummyData";
+import { useEffect, useState } from "react";
 import { search as searchImg } from "../../assets";
-import { addGuestButton } from "./styles";
-import { CreateGuest } from "./";
 
 const SearchGuests = ({ selectedGuest }) => {
   const [search, setSearch] = useState("");
   const [result, setResult] = useState([]);
   const [showGuestCreation, setShowGuestCreation] = useState(false);
+  const [guestsFinded, setGuestFinded] = useState([]);
+
+  useEffect(() => {
+    let guests = JSON.parse(localStorage.getItem("guests"));
+    setGuestFinded(guests.data);
+  }, []);
 
   const handleSearch = (event) => {
     setSearch(event.target.value);
@@ -23,10 +26,6 @@ const SearchGuests = ({ selectedGuest }) => {
     setResult(matchingGuests);
   };
 
-  const handleCreateGuest = () => {
-    setShowGuestCreation(!showGuestCreation);
-  };
-
   return (
     <div className="flex flex-col w-3/4 mb-2 z-0">
       <div className="flex relative h-10  w-[100%]">
@@ -40,14 +39,6 @@ const SearchGuests = ({ selectedGuest }) => {
         />
         <img src={searchImg} className="absolute right-4 bottom-3" />
       </div>
-
-      {/* <div className={addGuestButton} onClick={handleCreateGuest}>
-          <span className="text-white font-bold">
-            {!showGuestCreation ? "+" : "-"}
-          </span>
-        </div> */}
-
-      {/* {showGuestCreation && <CreateGuest name={search} />} */}
 
       {result.length ? (
         <div className="flex flex-col w-[100%] rounded-b-lg border -mt-1 p-2 h-max">
@@ -66,8 +57,6 @@ const SearchGuests = ({ selectedGuest }) => {
           ))}
         </div>
       ) : null}
-
-     
     </div>
   );
 };

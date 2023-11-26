@@ -23,13 +23,13 @@ const SearchComponent = () => {
       commerceId: 1,
     };
 
-    let response;
-    try {
-      response = await searchStructure(query);
-    } catch (error) {
-      console.log(error);
-    }
-    buildResult(response.payload);
+    // let response;
+    // try {
+    //   response = await searchStructure(query);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    buildResult(searchResults);
   };
 
   const buildResult = (data) => {

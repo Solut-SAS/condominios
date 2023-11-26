@@ -14,6 +14,11 @@ import { commerceButton } from "../../components/commerce/styles";
 
 import { FallingLines } from "react-loader-spinner";
 
+import { useContext } from "react";
+import { InvitationContext } from "../../context/Contexts";
+
+import { useInvitations } from "../../hooks/useInvitations";
+
 import {
   list as listGuests,
   create as createGuestApi,
@@ -47,6 +52,21 @@ function Invitations() {
   const [loadingInvitations, setLoadingInvitations] = useState(true);
   const [loadingGuests, setLoadingGuests] = useState(true);
 
+  // const { setInvitationsItems, setGuestsItems } = useInvitations();
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const [currentInvitation, setCurrentInvitation] = useState({});
+  const [currentGuest, setCurrentGuest] = useState({});
+  const [showGuestDeleteModal, setShowGuestDeleteModal] = useState(false);
+
+  const invitationContext = {
+    guests,
+    setGuests,
+    invitations,
+    setInvitations,
+  };
+
   const types = {
     invitation: "Invitación",
     guest: "Invitado",
@@ -64,16 +84,21 @@ function Invitations() {
       "Estado",
       "Acción",
     ];
-    console.log(fetchInvitations);
     setInvitations(fetchInvitations);
+    window.localStorage.setItem(
+      "invitations",
+      JSON.stringify(fetchInvitations)
+    );
+    // setInvitationsItems(fetchInvitations);
     setLoadingInvitations(false);
   }
 
   async function processGuests() {
     const fetchGuests = await listGuests();
     fetchGuests.headers = ["Id", "Nombre", "Estado", "Acción"];
-
     setGuests(fetchGuests);
+    window.localStorage.setItem("guests", JSON.stringify(fetchGuests));
+    // setGuestsItems(fetchGuests);
     setLoadingGuests(false);
   }
 
@@ -104,6 +129,22 @@ function Invitations() {
 
   const handleCreateButton = async () => {
     elementType === "guest" ? createGuest() : handleCreateInvitation();
+  };
+
+  const handleDeleteButton = async () => {
+    setLoading(true);
+    await deleteInvitation({ id: currentInvitation.id });
+    setLoading(false);
+    setShowDeleteModal(!showDeleteModal);
+    processInvitations();
+  };
+
+  const handleGuestDeleteButton = async () => {
+    setLoading(true);
+    await deleteGuest({ id: currentGuest.id });
+    setLoading(false);
+    setShowGuestDeleteModal(!showGuestDeleteModal);
+    processGuests();
   };
 
   function formatDate(date) {
@@ -166,6 +207,24 @@ function Invitations() {
     );
   };
 
+  const DeleteOptions = ({ cancel, deleteAction }) => {
+    return (
+      <div className="flex flex-row w-full justify-center items-center">
+        <Button
+          title="Cancelar"
+          action={cancel}
+          customClass="text-center mr-4 bg-neutral-600 text-white rounded-md p-2 my-4 hover:bg-neutral-700"
+        />
+        <Button
+          action={deleteAction}
+          title={`Eliminar`}
+          customClass={commerceButton}
+          loading={loading}
+        />
+      </div>
+    );
+  };
+
   const CreateElement = () => {
     const drawCompontent = {
       guest: <CreateGuest onCreateGuest={handleCreateGuest} />,
@@ -190,91 +249,151 @@ function Invitations() {
     );
   };
 
-  const handleAction = (action) => {
-    console.log(
-      "🚀 ~ file: Invitations.tsx:64 ~ handleAction ~ action",
-      action
+  const ModalDelete = () => {
+    return (
+      <Modal
+        show={showDeleteModal}
+        onClose={() => setShowDeleteModal(!showDeleteModal)}
+        header={"Eliminar invitación"}
+        body={`¿Estás seguro de eliminar la invitación de \n ${currentInvitation.guestname}?`}
+        footer={
+          <DeleteOptions
+            cancel={() => setShowDeleteModal(!showDeleteModal)}
+            deleteAction={handleDeleteButton}
+          />
+        }
+      />
     );
   };
 
+  const ModalGuestDelete = () => {
+    return (
+      <Modal
+        show={showGuestDeleteModal}
+        onClose={() => setShowGuestDeleteModal(!showGuestDeleteModal)}
+        header={"Eliminar invitado"}
+        body={`¿Estás seguro de eliminar al invitado \n ${currentGuest.name}?`}
+        footer={
+          <DeleteOptions
+            cancel={() => setShowGuestDeleteModal(!showGuestDeleteModal)}
+            deleteAction={handleGuestDeleteButton}
+          />
+        }
+      />
+    );
+  };
+
+  const handleAction = (action, item) => {
+    switch (action) {
+      case "edit":
+        setQueryData({ ...queryData, guest: item });
+        handleOnCreate("invitation");
+        break;
+      case "delete":
+        setCurrentInvitation(item);
+        setShowDeleteModal(!showDeleteModal);
+        break;
+      default:
+        break;
+    }
+  };
+  const handleGuestAction = (action, item) => {
+    switch (action) {
+      case "edit":
+        setQueryData({ ...queryData, guest: item });
+        handleOnCreate("invitation");
+        break;
+      case "delete":
+        setCurrentGuest(item);
+        setShowGuestDeleteModal(!showGuestDeleteModal);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
-    <div className="h-[100vh] rounded-md">
-      {CreateElement()}
+    <InvitationContext.Provider value={invitationContext}>
+      <div className="h-[100vh] rounded-md">
+        {CreateElement()}
+        {ModalDelete()}
+        {ModalGuestDelete()}
 
-      <div className="flex flex-col sm:flex-row mb-8 px-4 justify-between">
-        {loadingInvitations ? (
-          <FallingLines
-            color="#f53641"
-            width="100"
-            visible={loadingInvitations}
-            ariaLabel="falling-lines-loading"
-          />
-        ) : (
-          <BoxComponent
-            onCreate={() => handleOnCreate("invitation")}
-            title="Invitaciones activas"
-            value={invitations.data.length}
-          />
-        )}
-        {loadingGuests ? (
-          <FallingLines
-            color="#f53641"
-            width="100"
-            visible={loadingGuests}
-            ariaLabel="falling-lines-loading"
-          />
-        ) : (
-          <BoxComponent
-            onCreate={() => handleOnCreate("guest")}
-            title="Invitados"
-            value={guests.data.length}
-          />
-        )}
-
-        <div className=" w-full min-w-[200px] sm:w-2/5 flex flex-col bg-neutral-100 border rounded-md p-2 text-center justify-center items-center ">
-          <span className="text-neutral-600 font-semibold">
-            No tienes invitaciones pendientes para hoy
-          </span>
-        </div>
-      </div>
-
-      <div className="flex flex-col sm:flex-row">
-        <div className="flex flex-col w-full sm:w-1/2 md:w-1/2 px-4">
-          <TitleItem title="Invitaciones" />
+        <div className="flex flex-col sm:flex-row mb-8 px-4 justify-between">
           {loadingInvitations ? (
             <FallingLines
               color="#f53641"
               width="100"
-              visible={loading}
+              visible={loadingInvitations}
               ariaLabel="falling-lines-loading"
             />
           ) : (
-            <InvitationsTable
-              headers={invitations.headers}
-              items={invitations.data}
-              onAction={handleAction}
+            <BoxComponent
+              onCreate={() => handleOnCreate("invitation")}
+              title="Invitaciones activas"
+              value={invitations.data.length}
             />
           )}
-        </div>
-        <div className="flex flex-col w-full sm:w-1/2 md:w-1/2 px-4">
-          <TitleItem title="Invitados" />
           {loadingGuests ? (
             <FallingLines
               color="#f53641"
               width="100"
-              visible={loading}
+              visible={loadingGuests}
               ariaLabel="falling-lines-loading"
             />
           ) : (
-            <GuestsTable
-              headers={guests.headers}
-              items={guests.data}
-              onAction={handleAction}
+            <BoxComponent
+              onCreate={() => handleOnCreate("guest")}
+              title="Invitados"
+              value={guests.data.length}
             />
           )}
+
+          <div className=" w-full min-w-[200px] sm:w-2/5 flex flex-col bg-neutral-100 border rounded-md p-2 text-center justify-center items-center ">
+            <span className="text-neutral-600 font-semibold">
+              No tienes invitaciones pendientes para hoy
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row">
+          <div className="flex flex-col w-full sm:w-1/2 md:w-1/2 px-4">
+            <TitleItem title="Invitaciones" />
+            {loadingInvitations ? (
+              <FallingLines
+                color="#f53641"
+                width="100"
+                visible={loading}
+                ariaLabel="falling-lines-loading"
+              />
+            ) : (
+              <InvitationsTable
+                headers={invitations.headers}
+                items={invitations.data}
+                onAction={handleAction}
+              />
+            )}
+          </div>
+          <div className="flex flex-col w-full sm:w-1/2 md:w-1/2 px-4">
+            <TitleItem title="Invitados" />
+            {loadingGuests ? (
+              <FallingLines
+                color="#f53641"
+                width="100"
+                visible={loading}
+                ariaLabel="falling-lines-loading"
+              />
+            ) : (
+              <GuestsTable
+                headers={guests.headers}
+                items={guests.data}
+                onAction={handleGuestAction}
+              />
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </InvitationContext.Provider>
   );
 }
 

@@ -1,4 +1,4 @@
-import { Table, Pagination } from "flowbite-react";
+import { Table, Pagination, Tooltip } from "flowbite-react";
 import { deleteIcon, edit } from "../../../assets";
 
 const GuestsTable = ({ headers, items, onAction }) => {
@@ -28,14 +28,17 @@ const GuestsTable = ({ headers, items, onAction }) => {
               </Table.Cell>
               <Table.Cell className=" font-medium text-gray-900 dark:text-white">
                 <div className="flex flex-row">
-                  <img
-                    src={edit}
-                    onClick={() => onAction("edit")}
-                    className={"mr-2 cursor-pointer hover:brightness-75"}
-                  />
+                  <Tooltip content="Funcionalidad en progreso, pronto podrás actualizar tus invitados">
+                    <img
+                      src={edit}
+                      // onClick={() => onAction("edit", item)}
+                      className={"mr-2 cursor-pointer hover:brightness-75"}
+                    />
+                  </Tooltip>
+
                   <img
                     src={deleteIcon}
-                    onClick={() => onAction("delete")}
+                    onClick={() => onAction("delete", item)}
                     className={"mr-2 cursor-pointer hover:brightness-75"}
                   />
                 </div>
