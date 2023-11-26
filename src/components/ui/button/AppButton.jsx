@@ -1,6 +1,8 @@
 import {
   appButtonDefaultStyle,
   appButtonSecundarytStyle,
+  appButtonIncidentStyle,
+  appButtonCancelIncidentStyle,
 } from "./app-button-styles";
 import { Spinner } from "flowbite-react";
 
@@ -18,6 +20,8 @@ export default ({
     let classes = {
       primaryClass: appButtonDefaultStyle,
       secondaryClass: appButtonSecundarytStyle,
+      incident:appButtonIncidentStyle,
+      cancelIncident: appButtonCancelIncidentStyle
     };
 
     return customClass || classes[type];

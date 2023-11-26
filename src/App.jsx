@@ -6,6 +6,7 @@ import {
   Dashboard,
   Invitations,
   Annotations,
+  Incidents,
   Login,
   Login as Register,
   Commerce,
@@ -33,6 +34,7 @@ function App() {
           <Route path="/commerce" element={<Commerce />} />
           <Route path="/invitations" element={<Invitations />} />
           <Route path="/annotations" element={<Annotations />} />
+          <Route path="/user-annotations" element={<Incidents />} />
         </Route>
 
         <Route>

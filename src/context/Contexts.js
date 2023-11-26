@@ -4,4 +4,6 @@ const AnnotationsContext = createContext({});
 
 const InvitationContext = createContext({});
 
-export { AnnotationsContext, InvitationContext };
+const IncidentContext = createContext({});
+
+export { AnnotationsContext, IncidentContext, InvitationContext };

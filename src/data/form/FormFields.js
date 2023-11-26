@@ -129,4 +129,145 @@ const login = {
   ],
 };
 
-export { login, registerForm };
+const incidentForm = {
+  fields: [
+    {
+      label: {
+        name: "Descripción",
+        htmlFor: "incidentForm",
+      },
+      input: {
+        id: "description",
+        name: "description",
+        type: "text",
+        required: true,
+        placeholder: "Describa el incidente",
+        validations: {
+          required: {
+            value: true,
+            message: "EL detalle es requerido",
+          },
+          maxLength: {
+            value: 280,
+            message: "Longitud máxima de 280",
+          },
+        },
+      },
+    },
+    {
+      label: {
+        name: "Tipo de incidente",
+        htmlFor: "incidentForm",
+      },
+      select: {
+        id: "type",
+        name: "type",
+        type: "text",
+        required: true,
+        placeholder: "",
+        disabled: false,
+        items: [
+          {value: "security", text:"Seguridad"},
+          {value: "coexistence", text:"Convivencia"}, 
+          {value: "damage", text:"Daño"}
+        ],
+      },
+    },
+    {
+      label: {
+        name: "",
+        htmlFor: "incidentForm",
+      },
+      input: {
+        id: "image",
+        name: "image",
+        type: "file",
+        required: true,
+        placeholder: "",
+        disabled: false,
+      },
+    }
+  ],
+  buttons: [
+
+    {
+      type: "incident",
+      title: "Registrar",
+      action: "IncidentAction",
+      submit: true
+    },
+  ],
+  
+};
+
+const incidentFormforEdit = {
+  fields: [
+    {
+      label: {
+        name: "Descripción",
+        htmlFor: "incidentForm",
+      },
+      input: {
+        id: "description",
+        name: "description",
+        type: "text",
+        required: true,
+        placeholder: "Describa el incidente",
+        validations: {
+          required: {
+            value: true,
+            message: "EL detalle es requerido",
+          },
+          maxLength: {
+            value: 280,
+            message: "Longitud máxima de 280",
+          },
+        },
+      },
+    },
+    {
+      label: {
+        name: "Tipo de incidente",
+        htmlFor: "incidentForm",
+      },
+      select: {
+        id: "type",
+        name: "type",
+        type: "text",
+        required: true,
+        placeholder: "",
+        disabled: false,
+        items: [
+          {value: "security", text:"Seguridad"},
+          {value: "coexistence", text:"Convivencia"}, 
+          {value: "damage", text:"Daño"}
+        ],
+      },
+    },
+    {
+      label: {
+        name: "",
+        htmlFor: "incidentForm",
+      },
+      input: {
+        id: "image",
+        name: "image",
+        type: "file",
+        required: true,
+        placeholder: "",
+        disabled: false,
+      },
+    }
+  ],
+  buttons: [
+    
+    {
+      type: "incident",
+      title: "Guardar Cambios",
+      action: "IncidentAction",
+      submit: true
+    },
+  ],
+  
+};
+export { login, registerForm, incidentForm, incidentFormforEdit };

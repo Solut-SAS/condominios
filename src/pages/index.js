@@ -3,5 +3,6 @@ import Login from './login'
 import Invitations from './invitations'
 import Annotations from './annotations'
 import Commerce from './commerce/Commerce'
+import Incidents from './incidents'
 
-export { Dashboard, Login, Invitations, Annotations, Commerce }
+export { Dashboard, Login, Invitations, Annotations, Incidents, Commerce }

@@ -1,0 +1,6 @@
+#\:r6\: > div > div.p-6.flex-1.overflow-auto > form > div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+}

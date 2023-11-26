@@ -14,6 +14,7 @@ import search from './search.svg'
 import star from './star.svg'
 import building from './building.png'
 import premium from './premium.png'
+import filter from './filter.svg'
 
 export {
 	floor,
@@ -31,5 +32,6 @@ export {
 	search,
 	star,
 	building,
-	premium
+	premium,
+	filter,
 }
