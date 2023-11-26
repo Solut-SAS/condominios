@@ -23,7 +23,7 @@ function SidebarComponent() {
               key={el.name}
               // href={el.path}
               onClick={() => {
-                navigate(e.path);
+                navigate(el.path);
               }}
               className="text-lg font-medium tracking-tighter  mb-4 hover:text-red-500 hover:cursor-pointer"
             >
