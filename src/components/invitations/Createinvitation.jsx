@@ -1,9 +1,9 @@
 import SearchGuests from "./SearchGuests";
 import DateRangePicker from "../ui/date-range-picker/DatePicker";
 
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect } from "react";
 
-const CreateInvitation = memo(function CreateInvitation({ updateData }) {
+function CreateInvitation({ updateData }) {
   const [noExpiration, setNoExpiration] = useState(false);
   const [currentSelectedGuest, setCurrentSelectedGuest] = useState({});
   const [dates, setDates] = useState({});
@@ -66,6 +66,6 @@ const CreateInvitation = memo(function CreateInvitation({ updateData }) {
       </div>
     </div>
   );
-});
+};
 
 export default CreateInvitation;
