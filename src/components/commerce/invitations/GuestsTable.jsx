@@ -4,7 +4,7 @@ import { deleteIcon, edit } from "../../../assets";
 const GuestsTable = ({ headers, items, onAction }) => {
   return (
     <>
-      <Table hoverable={true} className={"h-[20vh] min-h-[40vh] max-h-[45vh]"}>
+      <Table hoverable={true} className={"h-[10vh]"}>
         <Table.Head>
           {headers.map((header) => (
             <Table.HeadCell key={header}>{header}</Table.HeadCell>
@@ -21,7 +21,7 @@ const GuestsTable = ({ headers, items, onAction }) => {
                 {item.id}
               </Table.Cell>
               <Table.Cell className=" font-medium text-gray-900 dark:text-white">
-                {item.guestName}
+                {item.name}
               </Table.Cell>
               <Table.Cell className=" font-medium text-gray-900 dark:text-white">
                 {item.status}

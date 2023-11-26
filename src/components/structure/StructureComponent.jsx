@@ -4,6 +4,10 @@ import { floor } from "../../data/dummyData";
 import SidebarInfo from "../sidebar/SidebarInfo";
 import { TowerComponent, Block, Annotation } from "./";
 
+import { response } from "../../features/incidents";
+import { getInfo } from "../../features/commerces";
+
+
 const StructureComponent = ({ structure }) => {
   const [towers, setTowers] = useState(structure.towers);
   const [renderedTowers, setRenderedTowers] = useState([]);
@@ -14,6 +18,7 @@ const StructureComponent = ({ structure }) => {
   const [currentTowerIndex, setCurrentTowerIndex] = useState(0);
 
   useEffect(() => {
+    console.log(structure);
     let visibleTowes = towers.slice(0, defaultTowersOnscreen);
     setRenderedTowers(visibleTowes);
   }, []);
@@ -87,8 +92,13 @@ const StructureComponent = ({ structure }) => {
     setShowSidebar(show);
   };
 
-  const handleResolveAnnotation = (props) => {
+  const handleResolveAnnotation = async (props) => {
     console.log(props);
+    await response(props);
+
+    let commerce = JSON.parse(window.localStorage.getItem("commerce"))
+    let { structure } = await getInfo({ id: commerce.id });
+    window.localStorage.setItem("structure", JSON.stringify(structure));
   };
 
   const Towers = () =>

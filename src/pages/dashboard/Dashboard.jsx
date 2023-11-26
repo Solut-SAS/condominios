@@ -1,20 +1,39 @@
-import { useState } from "react";
-import { Commerce, Commerces } from "../../components/commerce";
-import { commerces } from "../../data/dummyData";
+import { useState, useEffect } from "react";
+import { Commerces } from "../../components/commerce";
+import { getInfo } from "../../features/commerces";
+import { useNavigate } from "react-router-dom";
 import "./styles.css";
 
 function Dashboard() {
-  const [commerceSelected, setCommerceSelected] = useState();
+  const navigate = useNavigate();
+  const [commerces, setCommerces] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const handleCommerceSelect = (commerce) => {
-    //TODO hacer petición para obtener la estructura dado id de comercio
-    setCommerceSelected(commerce);
+  useEffect(() => {
+    window.localStorage.setItem("commerce", null);
+    let user = JSON.parse(window.localStorage.getItem("user"));
+    if (user?.residentialcomplexes?.length > 0) {
+      setCommerces(user.residentialcomplexes);
+    }
+  }, []);
+
+  const handleCommerceSelect = async (commerce) => {
+    setLoading(true);
+    window.localStorage.setItem("commerce", JSON.stringify(commerce));
+    let { structure } = await getInfo({ id: commerce.id });
+    window.localStorage.setItem("structure", JSON.stringify(structure));
+    setLoading(false);
+    navigate("/commerce");
   };
 
-  return commerces.length > 1 && !commerceSelected?.id ? (
-    <Commerces selectCommerce={handleCommerceSelect} />
-  ) : (
-    <Commerce {...commerceSelected} />
+  return (
+    commerces && (
+      <Commerces
+        selectCommerce={handleCommerceSelect}
+        commerces={commerces}
+        loading={loading}
+      />
+    )
   );
 }
 

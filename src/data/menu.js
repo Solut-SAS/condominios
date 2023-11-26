@@ -3,13 +3,13 @@ export const menu = [
     path: "commerces",
     name: "Mis condominios",
     icon: "home",
-    roles: ['ADMIN', 'GUARD']
+    roles: ['ADMIN', 'GUARD', 'OWNER']
   },
   {
     path: "invitations",
     name: "Invitaciones",
     icon: "home",
-    roles: ['ADMIN', 'GUARD', 'RESIDENT']
+    roles: ['ADMIN', 'GUARD', 'OWNER']
   },
   {
     path: "user-annotations",
@@ -35,17 +35,5 @@ export const menu = [
     icon: "home",
     roles: "annotations"
   },
-  // {
-  //   path: "documents",
-  //   name: "Documentos",
-  //   icon: "home",
-  //   permission: "documents"
-  // },
-  // {
-  //   path: "flowBalance",
-  //   name: "Caja",
-  //   icon: "home",
-  //   permission: "flowBalance"
-  // }
 ]
 

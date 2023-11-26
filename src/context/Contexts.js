@@ -1,5 +1,7 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
 const AnnotationsContext = createContext({});
 
-export default AnnotationsContext;
+const CommerceContext = createContext({});
+
+export { AnnotationsContext, CommerceContext };

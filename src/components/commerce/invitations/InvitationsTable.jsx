@@ -21,13 +21,13 @@ const InvitationsTable = ({ headers, items, onAction }) => {
               className="bg-white dark:border-gray-700 dark:bg-gray-800"
             >
               <Table.Cell className=" font-medium text-gray-900 dark:text-white">
-                {item.guestName}
+                {item.guestname}
               </Table.Cell>
               <Table.Cell className=" font-medium text-gray-900 dark:text-white">
-                {item.startDate}
+                {item.datestart}
               </Table.Cell>
               <Table.Cell className=" font-medium text-gray-900 dark:text-white">
-                {item.endDate}
+                {item.dateend}
               </Table.Cell>
               <Table.Cell className=" font-medium text-gray-900 dark:text-white">
                 {item.status}

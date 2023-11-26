@@ -5,7 +5,7 @@ import {
   SelectedElements,
   RecurrentAnnotations,
 } from "../../components/annotations";
-import AnnotationsContext from "../../context/Contexts";
+import { AnnotationsContext } from "../../context/Contexts";
 import { annotationComponent, contentAnnotations } from "./styles";
 
 function Annotations() {

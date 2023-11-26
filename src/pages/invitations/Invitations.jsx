@@ -5,12 +5,28 @@ import {
   InvitationsTable,
   BoxComponent,
 } from "../../components/commerce";
-import { guests, invitations } from "../../data/dummyData";
+// import { guests, invitations } from "../../data/dummyData";
 import { CreateInvitation, CreateGuest } from "../../components/invitations";
 import { commerceButton } from "../../components/commerce/styles";
 
+import { FallingLines } from "react-loader-spinner";
+
+import {
+  list as listGuests,
+  create as createGuestApi,
+  update as updateGuest,
+  deleteGuest,
+} from "../../features/guests";
+
+import {
+  list,
+  create,
+  update,
+  deleteInvitation,
+} from "../../features/invitations";
+
 const TitleItem = ({ title }) => (
-  <div className="flex flex-row w-1/2 mb-2 sm:mb-0 mt-10 sm:mt-0">
+  <div className="flex flex-row w-1/2 mb-10 sm:mb-0 mt-10 sm:mt-0">
     <span className="text-lg font-semibold">{title}</span>
   </div>
 );
@@ -21,10 +37,47 @@ function Invitations() {
   const [queryData, setQueryData] = useState({});
   const [guestData, setGuestData] = useState({});
   const [loading, setLoading] = useState(false);
+
+  const [guests, setGuests] = useState([]);
+  const [invitations, setInvitations] = useState([]);
+
+  const [loadingInvitations, setLoadingInvitations] = useState(true);
+  const [loadingGuests, setLoadingGuests] = useState(true);
+
   const types = {
     invitation: "Invitación",
     guest: "Invitado",
   };
+
+  const timeElapsed = Date.now();
+  const today = new Date(timeElapsed);
+
+  async function processInvitations() {
+    const fetchInvitations = await list();
+    fetchInvitations.headers = [
+      "Persona",
+      "Desde",
+      "Hasta",
+      "Estado",
+      "Acción",
+    ];
+    console.log(fetchInvitations);
+    setInvitations(fetchInvitations);
+    setLoadingInvitations(false);
+  }
+
+  async function processGuests() {
+    const fetchGuests = await listGuests();
+    fetchGuests.headers = ["Id", "Nombre", "Estado", "Acción"];
+
+    setGuests(fetchGuests);
+    setLoadingGuests(false);
+  }
+
+  useEffect(() => {
+    processInvitations();
+    processGuests();
+  }, []);
 
   const handleOnCreate = (type = "") => {
     setElementType(type);
@@ -46,35 +99,50 @@ function Invitations() {
     setShowCreateElement(!showCreateElement);
   };
 
-  const handleCreateButton = () => {
-    setLoading(true);
+  const handleCreateButton = async () => {
     elementType === "guest" ? createGuest() : createInvitation();
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
   };
 
-  const createInvitation = () => {
+  function formatDate(date) {
+    if (!date) date = new Date();
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    month = month < 10 ? "0" + month : month;
+    day = day < 10 ? "0" + day : day;
+
+    let formatedDate = `${year}-${month}-${day}`;
+    return formatedDate;
+  }
+
+  const createInvitation = async () => {
+    setLoadingInvitations(true);
+    setLoading(true);
     let data = {
-      id: invitations.data.length + 1,
-      guestName: queryData.guest.name,
       guestId: queryData.guest.id,
-      startDate: queryData.dates?.start.toLocaleString(),
-      endDate: queryData.dates?.end.toLocaleString(),
-      noExpiration: queryData.noExpiration,
-      status: "Activo",
+      dateStart: formatDate(queryData.dates?.start),
+      dateEnd: formatDate(queryData.dates?.end),
+      noExpiration: !!queryData.noExpiration,
     };
-    // TODO call api to create invitation
-    invitations.data.push(data);
+    await create(data);
+    processInvitations();
+    setLoading(false);
+    handleCancelButton();
   };
 
-  const createGuest = () => {
+  const createGuest = async () => {
+    setLoadingGuests(true);
+    setLoading(true);
     let data = {
       id: guests.data.length + 1,
-      guestName: guestData.name,
-      status: "Activo",
+      name: guestData.name,
+      cellphone: guestData.cellphone,
     };
-    guests.data.push(data);
+    await createGuestApi(data);
+    processGuests();
+    setLoading(false);
+    handleCancelButton();
   };
 
   const FooterComponent = ({ cancel, create }) => {
@@ -131,16 +199,35 @@ function Invitations() {
       {CreateElement()}
 
       <div className="flex flex-col sm:flex-row mb-8 px-4 justify-between">
-        <BoxComponent
-          onCreate={() => handleOnCreate("invitation")}
-          title="Invitaciones activas"
-          value={invitations.data.length}
-        />
-        <BoxComponent
-          onCreate={() => handleOnCreate("guest")}
-          title="Invitados"
-          value={guests.data.length}
-        />
+        {loadingInvitations ? (
+          <FallingLines
+            color="#f53641"
+            width="100"
+            visible={loadingInvitations}
+            ariaLabel="falling-lines-loading"
+          />
+        ) : (
+          <BoxComponent
+            onCreate={() => handleOnCreate("invitation")}
+            title="Invitaciones activas"
+            value={invitations.data.length}
+          />
+        )}
+        {loadingGuests ? (
+          <FallingLines
+            color="#f53641"
+            width="100"
+            visible={loadingGuests}
+            ariaLabel="falling-lines-loading"
+          />
+        ) : (
+          <BoxComponent
+            onCreate={() => handleOnCreate("guest")}
+            title="Invitados"
+            value={guests.data.length}
+          />
+        )}
+
         <div className=" w-full min-w-[200px] sm:w-2/5 flex flex-col bg-neutral-100 border rounded-md p-2 text-center justify-center items-center ">
           <span className="text-neutral-600 font-semibold">
             No tienes invitaciones pendientes para hoy
@@ -151,19 +238,37 @@ function Invitations() {
       <div className="flex flex-col sm:flex-row">
         <div className="flex flex-col w-full sm:w-1/2 md:w-1/2 px-4">
           <TitleItem title="Invitaciones" />
-          <InvitationsTable
-            headers={invitations.headers}
-            items={invitations.data}
-            onAction={handleAction}
-          />
+          {loadingInvitations ? (
+            <FallingLines
+              color="#f53641"
+              width="100"
+              visible={loading}
+              ariaLabel="falling-lines-loading"
+            />
+          ) : (
+            <InvitationsTable
+              headers={invitations.headers}
+              items={invitations.data}
+              onAction={handleAction}
+            />
+          )}
         </div>
         <div className="flex flex-col w-full sm:w-1/2 md:w-1/2 px-4">
           <TitleItem title="Invitados" />
-          <GuestsTable
-            headers={guests.headers}
-            items={guests.data}
-            onAction={handleAction}
-          />
+          {loadingGuests ? (
+            <FallingLines
+              color="#f53641"
+              width="100"
+              visible={loading}
+              ariaLabel="falling-lines-loading"
+            />
+          ) : (
+            <GuestsTable
+              headers={guests.headers}
+              items={guests.data}
+              onAction={handleAction}
+            />
+          )}
         </div>
       </div>
     </div>

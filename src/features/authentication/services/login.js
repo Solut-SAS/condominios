@@ -3,14 +3,13 @@ import { setUser } from "../authenticationSlice";
 import { appDispatch } from "../../../app/store";
 
 const login = async (data) => {
-	console.log("data login service", data)
   try {
     const response = await post("auth/login", data, "auth");
-    // console.log({ response });
-    appDispatch(setUser(response.payload));
+    if (response?.length) appDispatch(setUser(response[0]));
+    return response;
   } catch (error) {
-		console.log({ error })	
-	}
+    console.log({ error });
+  }
 };
 
 export default login;

@@ -8,6 +8,7 @@ import {
   Annotations,
   Login,
   Login as Register,
+  Commerce,
 } from "./pages";
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
             </AuthLayout>
           }
         >
-          <Route path="/commerces" element={<Dashboard />} />
+          <Route path="/commerce" element={<Commerce />} />
           <Route path="/invitations" element={<Invitations />} />
           <Route path="/annotations" element={<Annotations />} />
         </Route>
@@ -38,6 +39,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Register />} />
+          <Route path="/commerces" element={<Dashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>

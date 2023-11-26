@@ -17,7 +17,7 @@ const Annotation = ({ home, content, personName, id, resolveAnnotation }) => {
   };
 
   const handleResolveAnnotation = () => {
-    resolveAnnotation({ id, response });
+    resolveAnnotation({ incidentId: id, response, status: 'finished' });
     setResponse("");
     setVisible(false);
     setSolved(true);

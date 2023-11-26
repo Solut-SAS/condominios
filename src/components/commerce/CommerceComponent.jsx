@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { edit } from "../../assets";
 import { Modal, Button } from "../";
 import { commerceButton } from "./styles";
 import { StructureComponent } from "../structure";
-import { structure, guard_annotations } from "../../data/dummyData";
+import { guard_annotations } from "../../data/dummyData";
 import "./styles.css";
+
 
 const RoundNews = ({ toggleModal }) => (
   <div className="mr-10 w-[28%] h-[65vh] overflow-y-auto p-1 scrollbar-hide overscroll-contain">
@@ -18,7 +19,10 @@ const RoundNews = ({ toggleModal }) => (
     </div>
 
     {guard_annotations?.map((ga) => (
-      <div className="flex flex-col w-full shadow-md mt-1 mb-1 rounded-md p-3" key={ga.id}>
+      <div
+        className="flex flex-col w-full shadow-md mt-1 mb-1 rounded-md p-3"
+        key={ga.id}
+      >
         <div className="flex flex-row justify-between	mb-1">
           <span className="flex font-bold text-sm">{ga.reportedBy}</span>
           <span className="text-sm flex">
@@ -59,7 +63,7 @@ const FooterNewComponent = ({ cancel, create }) => {
   );
 };
 
-const Commerce = (commerce) => {
+const Commerce = ({ commerce, structure }) => {
   const [newTurn, setNewTurn] = useState("");
   const [shortcuts, setShortcuts] = useState([
     { name: "Visitas" },
@@ -68,6 +72,10 @@ const Commerce = (commerce) => {
     { name: "Novedades" },
   ]);
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    console.log(structure);
+  }, []);
 
   const handleResponseChange = (event) => {
     setNewTurn(event.target.value);
@@ -86,7 +94,7 @@ const Commerce = (commerce) => {
       time: new Date().toLocaleTimeString(),
       reportedBy: "Maya el guarda",
     };
-    console.log(newTurnData);
+    // console.log(newTurnData);
     //TODO llamar a método de backend que crea novedad de turno
     guard_annotations.unshift(newTurnData);
     handleToggleNewsModal();
@@ -115,20 +123,18 @@ const Commerce = (commerce) => {
           }
         />
 
-        <div className="flex flex-col w-4/6 self-center">
-          <div className="flex mb-8">
-            <span className="font-bold mr-4 text-xl self-center">
-              {commerce.name}
-            </span>
-            <img
+        <div className="flex flex-col w-4/6 ">
+          <span className="font-bold mr-4 text-xl mb-6">
+           Conjunto {commerce.name}
+          </span>
+          {/* <img
               className="flex w-8 cursor-pointer"
               src={edit}
               onClick={() => {
                 alert("hola");
               }}
-            />
-          </div>
-            <StructureComponent structure={structure} />
+            /> */}
+          <StructureComponent structure={structure} />
         </div>
       </div>
       {/* <h1>Accesos directos</h1>

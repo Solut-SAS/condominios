@@ -12,12 +12,12 @@ const FloorsComponent = ({ floors, viewFloor }) =>
         onClick={() => viewFloor(floorValue)}
       >
         <div className={floorText}>
-          <span className={`text-white text-sm self-center`}>{floorValue}</span>
+          <span className={`text-white text-sm self-center z-10`}>{floorValue}</span>
         </div>
         <img
           src={floor}
           className="box-svg"
-          style={{ width: "60%", maxWidth: "100%", height: "auto" }}
+          style={{ width: "45%", maxWidth: "100%", height: "auto" }}
         />
       </div>
     );

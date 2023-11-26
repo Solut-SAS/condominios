@@ -1,3 +1,4 @@
-import searchStructure from './services/searchStructure'
+import searchStructure from "./services/searchStructure";
+import getInfo from "./services/getInfo";
 
-export { searchStructure }
+export { searchStructure, getInfo };
