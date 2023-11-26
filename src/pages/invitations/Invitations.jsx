@@ -101,7 +101,7 @@ function Invitations() {
   };
 
   const handleCreateButton = async () => {
-    elementType === "guest" ? createGuest() : createInvitation();
+    elementType === "guest" ? createGuest() : handleCreateInvitation();
   };
 
   function formatDate(date) {
@@ -117,7 +117,7 @@ function Invitations() {
     return formatedDate;
   }
 
-  const createInvitation = async () => {
+  const handleCreateInvitation = async () => {
     setLoadingInvitations(true);
     setLoading(true);
     let data = {

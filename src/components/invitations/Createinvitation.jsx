@@ -1,6 +1,5 @@
 import SearchGuests from "./SearchGuests";
 import DateRangePicker from "../ui/date-range-picker/DatePicker";
-
 import { useState, useEffect } from "react";
 
 const CreateInvitation = ({ updateData }) => {
