@@ -17,6 +17,8 @@ import { FallingLines } from "react-loader-spinner";
 import { useContext } from "react";
 import { InvitationContext } from "../../context/Contexts";
 
+import Notify from "../../components/ui/notify/Notify";
+
 import { useInvitations } from "../../hooks/useInvitations";
 
 import {
@@ -59,6 +61,10 @@ function Invitations() {
   const [currentInvitation, setCurrentInvitation] = useState({});
   const [currentGuest, setCurrentGuest] = useState({});
   const [showGuestDeleteModal, setShowGuestDeleteModal] = useState(false);
+
+  const [type, setType] = useState("");
+  const [active, setActive] = useState(false);
+  const [message, setMessage] = useState("");
 
   const invitationContext = {
     guests,
@@ -134,6 +140,9 @@ function Invitations() {
   const handleDeleteButton = async () => {
     setLoading(true);
     await deleteInvitation({ id: currentInvitation.id });
+    setType("success");
+    setMessage("Invitación eliminada con éxito");
+    setActive(true);
     setLoading(false);
     setShowDeleteModal(!showDeleteModal);
     processInvitations();
@@ -142,6 +151,9 @@ function Invitations() {
   const handleGuestDeleteButton = async () => {
     setLoading(true);
     await deleteGuest({ id: currentGuest.id });
+    setType("success");
+    setMessage("Invitado eliminado con éxito");
+    setActive(true);
     setLoading(false);
     setShowGuestDeleteModal(!showGuestDeleteModal);
     processGuests();
@@ -170,6 +182,9 @@ function Invitations() {
       noExpiration: !!queryData.noExpiration,
     };
     await create(data);
+    setType("success");
+    setMessage("Invitación creada con éxito");
+    setActive(true);
     processInvitations();
     setLoading(false);
     handleCancelButton();
@@ -184,6 +199,9 @@ function Invitations() {
       cellphone: guestData.cellphone,
     };
     await createGuestApi(data);
+    setType("success");
+    setMessage("Invitado creado con éxito");
+    setActive(true);
     processGuests();
     setLoading(false);
     handleCancelButton();
@@ -318,6 +336,12 @@ function Invitations() {
         {CreateElement()}
         {ModalDelete()}
         {ModalGuestDelete()}
+        <Notify
+          message={message}
+          type={type}
+          active={active}
+          setActive={setActive}
+        />
 
         <div className="flex flex-col sm:flex-row mb-8 px-4 justify-between">
           {loadingInvitations ? (

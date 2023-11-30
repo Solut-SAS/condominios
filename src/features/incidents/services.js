@@ -4,8 +4,12 @@ const response = async (data) => {
   return await post("incidents/response", data);
 };
 
-const create = async () => {
-  return await post("incidents/create");
+const list = async () => {
+  return await get("incidents/list");
+};
+
+const create = async (data) => {
+  return await post("incidents/create", data);
 };
 
 const update = async (data) => {
@@ -16,4 +20,4 @@ const deleteIncident = async (data) => {
   return await post("incidents/delete", data);
 };
 
-export { create, response, update, deleteIncident };
+export { create, response, update, deleteIncident, list };

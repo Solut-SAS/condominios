@@ -173,20 +173,20 @@ const incidentForm = {
         ],
       },
     },
-    {
-      label: {
-        name: "",
-        htmlFor: "incidentForm",
-      },
-      input: {
-        id: "image",
-        name: "image",
-        type: "file",
-        required: true,
-        placeholder: "",
-        disabled: false,
-      },
-    }
+    // {
+    //   label: {
+    //     name: "",
+    //     htmlFor: "incidentForm",
+    //   },
+    //   input: {
+    //     id: "image",
+    //     name: "image",
+    //     type: "file",
+    //     required: true,
+    //     placeholder: "",
+    //     disabled: false,
+    //   },
+    // }
   ],
   buttons: [
 
@@ -225,39 +225,39 @@ const incidentFormforEdit = {
         },
       },
     },
-    {
-      label: {
-        name: "Tipo de incidente",
-        htmlFor: "incidentForm",
-      },
-      select: {
-        id: "type",
-        name: "type",
-        type: "text",
-        required: true,
-        placeholder: "",
-        disabled: false,
-        items: [
-          {value: "security", text:"Seguridad"},
-          {value: "coexistence", text:"Convivencia"}, 
-          {value: "damage", text:"Daño"}
-        ],
-      },
-    },
-    {
-      label: {
-        name: "",
-        htmlFor: "incidentForm",
-      },
-      input: {
-        id: "image",
-        name: "image",
-        type: "file",
-        required: true,
-        placeholder: "",
-        disabled: false,
-      },
-    }
+    // {
+    //   label: {
+    //     name: "Tipo de incidente",
+    //     htmlFor: "incidentForm",
+    //   },
+    //   select: {
+    //     id: "type",
+    //     name: "type",
+    //     type: "text",
+    //     required: true,
+    //     placeholder: "",
+    //     disabled: false,
+    //     items: [
+    //       {value: "security", text:"Seguridad"},
+    //       {value: "coexistence", text:"Convivencia"}, 
+    //       {value: "damage", text:"Daño"}
+    //     ],
+    //   },
+    // },
+    // {
+    //   label: {
+    //     name: "",
+    //     htmlFor: "incidentForm",
+    //   },
+    //   input: {
+    //     id: "image",
+    //     name: "image",
+    //     type: "file",
+    //     required: true,
+    //     placeholder: "",
+    //     disabled: false,
+    //   },
+    // }
   ],
   buttons: [
     

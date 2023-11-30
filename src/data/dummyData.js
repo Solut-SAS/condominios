@@ -184,21 +184,7 @@ const guard_annotations = [
   },
   {
     id: 3,
-    content: "Se encontró una bicicleta dentro de la piscina",
-    date: "2023-01-22",
-    time: "10:00",
-    reportedBy: "Guarda Maya",
-  },
-  {
-    id: 4,
-    content: "Se encontró una bicicleta dentro de la piscina",
-    date: "2023-01-22",
-    time: "10:00",
-    reportedBy: "Guarda Maya",
-  },
-  {
-    id: 5,
-    content: "Se encontró una bicicleta dentro de la piscina",
+    content: "Carro con el vidrio roto",
     date: "2023-01-22",
     time: "10:00",
     reportedBy: "Guarda Maya",

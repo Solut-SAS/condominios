@@ -3,7 +3,7 @@ import { buttonDelete, buttonResponse } from "./styles";
 import AppButton from "../ui/button/AppButton";
 import { check } from "../../assets";
 
-const Annotation = ({ home, content, personName, id, resolveAnnotation }) => {
+const Annotation = ({ home, content, personName, id, resolveAnnotation, status }) => {
   const [response, setResponse] = useState("");
   const [visible, setVisible] = useState(false);
   const [solved, setSolved] = useState(false);
@@ -31,7 +31,7 @@ const Annotation = ({ home, content, personName, id, resolveAnnotation }) => {
       </span>
       <span>{content}</span>
       <div className="flex flex-row">
-        {!solved ? (
+        {!solved && status != 'finished' ? (
           <>
             <AppButton
               title="Eliminar"

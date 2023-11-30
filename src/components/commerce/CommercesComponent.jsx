@@ -9,7 +9,7 @@ const Commerces = ({ selectCommerce, commerces, loading }) => {
       <img src={logo} className={"w-1/4 mb-16 "} />
 
       <h1 className="text-xl mb-6 font-bold ">
-        Escoge el conjunto que quieres administrar hoy
+        Escoge el conjunto al que quieres acceder
       </h1>
 
       <div className="flex flex-row w-full justify-center items-center">

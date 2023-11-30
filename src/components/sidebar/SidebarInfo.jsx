@@ -1,6 +1,6 @@
 const SidebarInfo = ({ visible, setVisible, children }) => {
   return (
-    <div className="overflow-scroll">
+    <div className="overflow-y-scroll ">
       {visible ? (
         <button
           className="flex text-4xl text-white items-center cursor-pointer fixed right-4 top-4 z-50"

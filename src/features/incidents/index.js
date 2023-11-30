@@ -1,3 +1,3 @@
-import { response, create, deleteIncident } from "./services";
+import { response, create, deleteIncident, list } from "./services";
 
-export { response, create, deleteIncident };
+export { response, create, deleteIncident, list };

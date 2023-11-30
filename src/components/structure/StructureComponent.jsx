@@ -6,7 +6,7 @@ import { TowerComponent, Block, Annotation } from "./";
 
 import { response } from "../../features/incidents";
 import { getInfo } from "../../features/commerces";
-
+import Notify from "../../components/ui/notify/Notify";
 
 const StructureComponent = ({ structure }) => {
   const [towers, setTowers] = useState(structure.towers);
@@ -16,6 +16,9 @@ const StructureComponent = ({ structure }) => {
   const [renderObject, setRenderObject] = useState({});
   const [defaultTowersOnscreen] = useState(4);
   const [currentTowerIndex, setCurrentTowerIndex] = useState(0);
+  const [type, setType] = useState("");
+  const [active, setActive] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     console.log(structure);
@@ -33,12 +36,15 @@ const StructureComponent = ({ structure }) => {
 
     setCurrentTowerIndex((prev) => prev + op);
     setRenderedTowers(
-      towers.slice(currentTowerIndex + op, currentTowerIndex + op + defaultTowersOnscreen)
+      towers.slice(
+        currentTowerIndex + op,
+        currentTowerIndex + op + defaultTowersOnscreen
+      )
     );
   };
 
   const RenderAnnotations = () => (
-    <>
+    <div className="flex flex-col overflow-y-scroll h-[90vh]">
       <h1 className="text-center text-lg mb-6">Novedades en la torre</h1>
       {renderObject?.toRender?.map((annotation) => (
         <Annotation
@@ -47,7 +53,7 @@ const StructureComponent = ({ structure }) => {
           resolveAnnotation={handleResolveAnnotation}
         />
       ))}
-    </>
+    </div>
   );
 
   const RenderFloor = () => (
@@ -93,10 +99,12 @@ const StructureComponent = ({ structure }) => {
   };
 
   const handleResolveAnnotation = async (props) => {
-    console.log(props);
+    if (!props.response) props.response = "Resuelto sin descripción";
     await response(props);
-
-    let commerce = JSON.parse(window.localStorage.getItem("commerce"))
+    setType("success");
+    setMessage("Incidente resuelto con éxito");
+    setActive(true);
+    let commerce = JSON.parse(window.localStorage.getItem("commerce"));
     let { structure } = await getInfo({ id: commerce.id });
     window.localStorage.setItem("structure", JSON.stringify(structure));
   };
@@ -114,6 +122,12 @@ const StructureComponent = ({ structure }) => {
 
   return (
     <div className="flex flex-col">
+      <Notify
+        message={message}
+        type={type}
+        active={active}
+        setActive={setActive}
+      />
       <div className="flex flex-row">
         {currentTowerIndex != 0 && (
           <span onClick={() => calcVariation("decrement")}>Atrás</span>
@@ -131,9 +145,11 @@ const StructureComponent = ({ structure }) => {
         <Blocks />
       </div>
 
-      <SidebarInfo visible={showSidebar} setVisible={handleSidebar}>
-        <RenderInSidebar />
-      </SidebarInfo>
+      <div className="overflow-scroll">
+        <SidebarInfo visible={showSidebar} setVisible={handleSidebar}>
+          <RenderInSidebar />
+        </SidebarInfo>
+      </div>
     </div>
   );
 };

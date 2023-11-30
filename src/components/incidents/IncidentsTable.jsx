@@ -2,7 +2,7 @@ import { Table, Pagination } from "flowbite-react";
 import { deleteIcon, edit } from "../../assets";
 
 const IncidentsTable = ({ items, onAction }) => {
-  const headers = ["Tipo", "Descripción", "Estado", "Acción"];
+  const headers = ["Tipo", "Descripción", "Estado", "Respuesta", "Acción"];
   return (
     <>
       <Table
@@ -39,16 +39,22 @@ const IncidentsTable = ({ items, onAction }) => {
                   : item.type == "in_progress" && "En proceso"}
               </Table.Cell>
               <Table.Cell className=" font-medium text-gray-900 dark:text-white">
+                {item.response || "Sin respuesta"}
+              </Table.Cell>
+              <Table.Cell className=" font-medium text-gray-900 dark:text-white">
                 <div className="flex flex-row">
-                  <img
-                    src={edit}
-                    onClick={(e) => onAction("edit", item)}
-                    className={"mr-2 cursor-pointer hover:brightness-75"}
-                    id={item.id}
-                  />
+                  {item.status != "finished" && (
+                    <img
+                      src={edit}
+                      onClick={() => onAction("edit", item)}
+                      className={"mr-2 cursor-pointer hover:brightness-75"}
+                      id={item.id}
+                    />
+                  )}
+
                   <img
                     src={deleteIcon}
-                    onClick={(e) => onAction("delete", item)}
+                    onClick={() => onAction("delete", item)}
                     className={"mr-2 cursor-pointer hover:brightness-75"}
                     id={item.id}
                   />

@@ -6,7 +6,6 @@ import { StructureComponent } from "../structure";
 import { guard_annotations } from "../../data/dummyData";
 import "./styles.css";
 
-
 const RoundNews = ({ toggleModal }) => (
   <div className="mr-10 w-[28%] h-[65vh] overflow-y-auto p-1 scrollbar-hide overscroll-contain">
     <div className="flex flex-row justify-evenly">
@@ -72,9 +71,11 @@ const Commerce = ({ commerce, structure }) => {
     { name: "Novedades" },
   ]);
   const [showModal, setShowModal] = useState(false);
+  const [rol, setRol] = useState("");
 
   useEffect(() => {
-    console.log(structure);
+    let user = JSON.parse(localStorage.getItem("user"));
+    setRol(user.rol);
   }, []);
 
   const handleResponseChange = (event) => {
@@ -104,7 +105,10 @@ const Commerce = ({ commerce, structure }) => {
   return (
     <div className="flex flex-col h-[100vh]">
       <div className="flex flex-row justify-center w-full mb-10">
-        <RoundNews toggleModal={handleToggleNewsModal} />
+        {rol && rol != "OWNER" && (
+          <RoundNews toggleModal={handleToggleNewsModal} />
+        )}
+
         <Modal
           show={showModal}
           onClose={handleToggleNewsModal}
@@ -125,7 +129,7 @@ const Commerce = ({ commerce, structure }) => {
 
         <div className="flex flex-col w-4/6 ">
           <span className="font-bold mr-4 text-xl mb-6">
-           Conjunto {commerce.name}
+            Conjunto {commerce.name}
           </span>
           {/* <img
               className="flex w-8 cursor-pointer"
